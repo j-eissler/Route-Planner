@@ -19,3 +19,5 @@ samples, guidance on mobile development, and a full API reference.
 This app uses Google services which require an API key for billing. Enter your own API key into the following files:
 - [/android/app/src/main/AndroidManifest.xml](/android/app/src/main/AndroidManifest.xml)
 - [/lib/auth/secrets.dart](/lib/auth/secrets.dart)
+
+A guide on how to get an API key can be found [here](https://developers.google.com/maps/documentation/javascript/get-api-key).
