@@ -14,3 +14,9 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
+This app uses Google services which require an API key for billing. Enter your own API key into the following files
+- android\app\src\main\AndroidManifest.xml
+- lib\auth\secrets.dart
