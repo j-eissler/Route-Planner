@@ -21,11 +21,11 @@ class Navbar extends StatelessWidget {
       currentIndex: currentIndex,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.place_sharp),
+          icon: Icon(Icons.place_outlined),
           label: 'Overview',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.bookmark),
+          icon: Icon(Icons.bookmark_outline),
           label: 'Places',
         ),
       ],
