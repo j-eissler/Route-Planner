@@ -12,7 +12,6 @@ class OverviewScreen extends StatefulWidget {
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
-  int _selectedNavbarItem = 0;
   late GoogleMapController mapController;
   final CameraPosition _cameraInitPos = const CameraPosition(
     target: LatLng(50.775555, 6.083611),
@@ -34,12 +33,6 @@ class _OverviewScreenState extends State<OverviewScreen> {
       );
     }
     return markers;
-  }
-
-  void _onNavbarTapped(int index) {
-    setState(() {
-      _selectedNavbarItem = index;
-    });
   }
 
   @override
@@ -75,9 +68,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
               zoomControlsEnabled: false,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
-              mapToolbarEnabled: true,
               initialCameraPosition: _cameraInitPos,
               markers: snapshot.data!,
+              mapToolbarEnabled: false,
             );
           }
 
@@ -86,19 +79,6 @@ class _OverviewScreenState extends State<OverviewScreen> {
             child: CircularProgressIndicator(),
           );
         },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _onNavbarTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.place_sharp),
-            label: 'Overview',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark),
-            label: 'Places',
-          ),
-        ],
       ),
     );
   }
