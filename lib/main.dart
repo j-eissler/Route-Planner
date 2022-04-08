@@ -12,22 +12,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _selectedNavbarItem = 0;
-  final pages = [
-    OverviewMap(),
-    Container(),
-  ];
-
   Widget _pageBody = Container();
-  Widget _appBarIcon = Icon(Icons.search);
+  Widget _appBarIcon = const Icon(Icons.search);
   TextEditingController searchFieldController = TextEditingController();
-
-  void _onNavbarTapped(int index) {
-    setState(() {
-      print("Tapped navbar item " + index.toString());
-      _selectedNavbarItem = index;
-    });
-  }
 
   void _setMapMode() {
     // Remove focus from search field
@@ -76,76 +63,7 @@ class _MyAppState extends State<MyApp> {
               onTap: _setSearchMode,
             ),
             backgroundColor: Colors.white),
-        body: _pageBody, //pages[_selectedNavbarItem],
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedNavbarItem,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              label: 'Map',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.place),
-              label: 'Addresses',
-            ),
-          ],
-          onTap: _onNavbarTapped,
-        ),
-        /*floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () => print("First Button"),
-              child: const Icon(
-                Icons.gps_fixed,
-              ),
-            ),
-            FloatingActionButton(
-              onPressed: () => print("Second Button"),
-              child: const Icon(
-                Icons.add,
-              ),
-            ),
-          ],
-        ),*/
-      ),
-    );
-  }
-}
-
-class SecondRoute extends StatelessWidget {
-  const SecondRoute({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Second Route'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MyApp()),
-            );
-          },
-          child: Text('Go to first page'),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.abc),
-            label: 'First Item',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit),
-            label: 'Second Item',
-          ),
-        ],
+        body: _pageBody,
       ),
     );
   }

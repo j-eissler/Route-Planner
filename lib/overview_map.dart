@@ -58,7 +58,7 @@ class _OverviewMapState extends State<OverviewMap> {
             zoomControlsEnabled: false,
             initialCameraPosition: _cameraInitPos,
           ),
-          Center(
+          const Center(
             child: CircularProgressIndicator(),
             /*child: Container(
               decoration: BoxDecoration(
