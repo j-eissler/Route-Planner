@@ -55,10 +55,12 @@ class _OverviewMapState extends State<OverviewMap> {
         // Markers being loaded, display map and overlay box
         return Stack(children: [
           GoogleMap(
+            zoomControlsEnabled: false,
             initialCameraPosition: _cameraInitPos,
           ),
           Center(
-            child: Container(
+            child: CircularProgressIndicator(),
+            /*child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(10),
@@ -83,7 +85,7 @@ class _OverviewMapState extends State<OverviewMap> {
                 ],
                 mainAxisSize: MainAxisSize.min,
               ),
-            ),
+            ),*/
           ),
         ]);
       },
