@@ -66,7 +66,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
           ),
           // Searchbar
           Padding(
-            padding: const EdgeInsets.only(top: 40),
+            padding: const EdgeInsets.only(top: 30),
             // Wrapper container to add drop shadow
             child: TextButton(
               // Button that creates the illusion of a search field. When pressed it moves the user to the search screen.
