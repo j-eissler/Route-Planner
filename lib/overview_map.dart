@@ -53,42 +53,10 @@ class _OverviewMapState extends State<OverviewMap> {
           );
         }
 
-        // Markers being loaded, display map and overlay box
-        return Stack(children: [
-          GoogleMap(
-            zoomControlsEnabled: false,
-            initialCameraPosition: _cameraInitPos,
-          ),
-          const Center(
-            child: CircularProgressIndicator(),
-            /*child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(blurRadius: 8),
-                ],
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 80,
-              ),
-              child: Column(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Text('Placing markers...'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
-                mainAxisSize: MainAxisSize.min,
-              ),
-            ),*/
-          ),
-        ]);
+        // Markers being loaded, display loading icon
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }
