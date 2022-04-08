@@ -22,7 +22,6 @@ class _OverviewMapState extends State<OverviewMap> {
     mapController = controller;
   }
 
-  // TODO: Load all addresses
   Future<List<Marker>> _generateMarkers() async {
     Storage storage = Storage();
     List<Place> places = await storage.getAllPlaces();
@@ -38,56 +37,57 @@ class _OverviewMapState extends State<OverviewMap> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _generateMarkers(),
-        builder: ((context, AsyncSnapshot<List<Marker>> snapshot) {
-          if (snapshot.hasData) {
-            // Markers were generated, display map
-            return GoogleMap(
-              onMapCreated: _onMapCreated,
-              compassEnabled: true,
-              zoomControlsEnabled: false,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              mapToolbarEnabled: true,
-              initialCameraPosition: _cameraInitPos,
-              markers: snapshot.data!.toSet(),
-            );
-          }
+      future: _generateMarkers(),
+      builder: (context, AsyncSnapshot<List<Marker>> snapshot) {
+        if (snapshot.hasData) {
+          // Markers were generated, display map
+          return GoogleMap(
+            onMapCreated: _onMapCreated,
+            compassEnabled: true,
+            zoomControlsEnabled: false,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            mapToolbarEnabled: true,
+            initialCameraPosition: _cameraInitPos,
+            markers: snapshot.data!.toSet(),
+          );
+        }
 
-          // Markers being loaded, display map and overlay box
-          return Stack(children: [
-            GoogleMap(
-              initialCameraPosition: _cameraInitPos,
-            ),
-            Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  boxShadow: const [
-                    BoxShadow(blurRadius: 8),
-                  ],
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 80,
-                ),
-                child: Column(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text('Placing markers...'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: CircularProgressIndicator(),
-                    ),
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
+        // Markers being loaded, display map and overlay box
+        return Stack(children: [
+          GoogleMap(
+            initialCameraPosition: _cameraInitPos,
+          ),
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(blurRadius: 8),
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 80,
+              ),
+              child: Column(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Text('Placing markers...'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: CircularProgressIndicator(),
+                  ),
+                ],
+                mainAxisSize: MainAxisSize.min,
               ),
             ),
-          ]);
-        }));
+          ),
+        ]);
+      },
+    );
   }
 }
