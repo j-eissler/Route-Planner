@@ -26,4 +26,9 @@ class Place {
       'lng': latLng.longitude,
     };
   }
+
+  // Returns the description without the last colon and country name
+  String descriptionNoCountry() {
+    return description.substring(0, description.lastIndexOf(','));
+  }
 }
