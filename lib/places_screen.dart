@@ -16,7 +16,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('My places')),
+      appBar: AppBar(title: const Text('My Places')),
       body: FutureBuilder(
         future: storage.getAllPlaces(),
         builder: (context, AsyncSnapshot<List<Place>> snapshot) {
