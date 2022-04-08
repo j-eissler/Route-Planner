@@ -15,6 +15,7 @@ class _MyAppState extends State<MyApp> {
   Widget _pageBody = Container();
   Widget _appBarIcon = const Icon(Icons.search);
   TextEditingController searchFieldController = TextEditingController();
+  int _selectedNavbarItem = 0;
 
   void _setMapMode() {
     // Remove focus from search field
@@ -36,6 +37,12 @@ class _MyAppState extends State<MyApp> {
         onPressed: _setMapMode,
         icon: const Icon(Icons.arrow_back),
       );
+    });
+  }
+
+  void _onNavbarTapped(int index) {
+    setState(() {
+      _selectedNavbarItem = index;
     });
   }
 
@@ -64,6 +71,19 @@ class _MyAppState extends State<MyApp> {
             ),
             backgroundColor: Colors.white),
         body: _pageBody,
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: _onNavbarTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.place_sharp),
+              label: 'Overview',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bookmark),
+              label: 'Places',
+            ),
+          ],
+        ),
       ),
     );
   }
