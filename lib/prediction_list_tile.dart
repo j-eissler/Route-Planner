@@ -26,7 +26,10 @@ class PredictionListTile extends StatelessWidget {
       String description = jsonResult['formatted_address'];
       LatLng latLng = LatLng(jsonResult['geometry']['location']['lat'],
           jsonResult['geometry']['location']['lng']);
-      return Place(description, latLng, prediction.placeId);
+      return Place(
+          description: description,
+          latLng: latLng,
+          placeId: prediction.placeId);
     } catch (e) {
       return null;
     }

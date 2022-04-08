@@ -1,12 +1,16 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Place {
-  String description;
-  LatLng latLng;
+  final String description;
+  final LatLng latLng;
   // Google Maps place Id. Stored for possible future requests
-  String placeId;
+  final String placeId;
 
-  Place(this.description, this.latLng, this.placeId);
+  const Place({
+    required this.description,
+    required this.latLng,
+    required this.placeId,
+  });
 
   @override
   String toString() {

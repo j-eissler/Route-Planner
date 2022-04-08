@@ -1,4 +1,5 @@
 import 'package:flutter_application_1/place.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -25,5 +26,19 @@ class Storage {
     if (database == null) await _loadDatabase();
     database!.insert('places', place.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<Place>> getAllPlaces() async {
+    if (database == null) await _loadDatabase();
+    final List<Map<String, dynamic>> maps = await database!.query('places');
+
+    // Convert the List<Map<String, dynamic> into a List<Place>.
+    return List.generate(maps.length, (i) {
+      return Place(
+        description: maps[i]['desc'],
+        latLng: LatLng(maps[i]['lat'], maps[i]['lng']),
+        placeId: maps[i]['id'],
+      );
+    });
   }
 }
