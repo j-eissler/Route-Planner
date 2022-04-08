@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/history_screen.dart';
 import 'package:flutter_application_1/overview_screen.dart';
 import 'package:flutter_application_1/places_screen.dart';
 
@@ -21,6 +22,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (context) => const OverviewScreen(),
         '/places': (context) => const PlacesScreen(),
+        '/history': (context) => const HistoryScreen(),
       },
     );
   }

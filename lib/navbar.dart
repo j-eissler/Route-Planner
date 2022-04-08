@@ -15,6 +15,9 @@ class Navbar extends StatelessWidget {
           case 1:
             Navigator.pushReplacementNamed(context, '/places');
             break;
+          case 2:
+            Navigator.pushReplacementNamed(context, '/history');
+            break;
           default:
         }
       },
@@ -31,6 +34,12 @@ class Navbar extends StatelessWidget {
               ? const Icon(Icons.bookmark)
               : const Icon(Icons.bookmark_outline),
           label: 'Places',
+        ),
+        BottomNavigationBarItem(
+          icon: currentIndex == 2
+              ? const Icon(Icons.history)
+              : const Icon(Icons.history_outlined),
+          label: 'History',
         ),
       ],
     );
