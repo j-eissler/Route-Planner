@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/auth/secrets.dart';
 import 'dart:convert';
-import 'package:flutter_application_1/prediction.dart';
+import 'package:flutter_application_1/models/prediction.dart';
 import 'package:flutter_application_1/prediction_list_tile.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;

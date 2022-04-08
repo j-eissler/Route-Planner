@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/place.dart';
+import 'package:flutter_application_1/models/place.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';

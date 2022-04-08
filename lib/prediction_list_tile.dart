@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/place.dart';
-import 'package:flutter_application_1/prediction.dart';
+import 'package:flutter_application_1/models/place.dart';
+import 'package:flutter_application_1/models/prediction.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'auth/secrets.dart';
-import 'storage.dart';
+import 'models/storage.dart';
 
 class PredictionListTile extends StatelessWidget {
   final Prediction prediction;
