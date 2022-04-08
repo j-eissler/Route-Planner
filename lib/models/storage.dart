@@ -31,7 +31,6 @@ class Storage {
   Future<List<Place>> getAllPlaces() async {
     if (database == null) await _loadDatabase();
     final List<Map<String, dynamic>> maps = await database!.query('places');
-
     // Convert the List<Map<String, dynamic> into a List<Place>.
     return List.generate(maps.length, (i) {
       return Place(
@@ -40,5 +39,10 @@ class Storage {
         placeId: maps[i]['id'],
       );
     });
+  }
+
+  void delete(Place place) async {
+    if (database == null) await _loadDatabase();
+    database!.delete('places', where: 'id = ?', whereArgs: [place.placeId]);
   }
 }
