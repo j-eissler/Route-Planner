@@ -19,13 +19,17 @@ class Navbar extends StatelessWidget {
         }
       },
       currentIndex: currentIndex,
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.place_outlined),
+          icon: currentIndex == 0
+              ? const Icon(Icons.place)
+              : const Icon(Icons.place_outlined),
           label: 'Overview',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.bookmark_outline),
+          icon: currentIndex == 1
+              ? const Icon(Icons.bookmark)
+              : const Icon(Icons.bookmark_outline),
           label: 'Places',
         ),
       ],
