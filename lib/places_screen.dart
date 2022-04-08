@@ -22,13 +22,25 @@ class _PlacesScreenState extends State<PlacesScreen> {
         builder: (context, AsyncSnapshot<List<Place>> snapshot) {
           if (snapshot.hasData) {
             // show list of places
-            return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(snapshot.data![index].description),
-                  );
-                });
+            return ListView.separated(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(snapshot.data![index].descriptionNoCountry()),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {
+                        storage.delete(snapshot.data![index]);
+                      });
+                    },
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+            );
           }
 
           // Places being loaded, display loading icon
