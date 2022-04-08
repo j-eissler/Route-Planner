@@ -21,23 +21,24 @@ class _OverviewMapState extends State<OverviewMap> {
     mapController = controller;
   }
 
-  Future<List<Marker>> _generateMarkers() async {
+  Future<Set<Marker>> _generateMarkers() async {
     Storage storage = Storage();
     List<Place> places = await storage.getAllPlaces();
 
-    return List.generate(places.length, (i) {
-      return Marker(
-        markerId: MarkerId(places[i].placeId),
-        position: places[i].latLng,
+    Set<Marker> markers = {};
+    for (Place p in places) {
+      markers.add(
+        Marker(markerId: MarkerId(p.placeId), position: p.latLng),
       );
-    });
+    }
+    return markers;
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _generateMarkers(),
-      builder: (context, AsyncSnapshot<List<Marker>> snapshot) {
+      builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
         if (snapshot.hasData) {
           // Markers were generated, display map
           return GoogleMap(
@@ -48,7 +49,7 @@ class _OverviewMapState extends State<OverviewMap> {
             myLocationButtonEnabled: true,
             mapToolbarEnabled: true,
             initialCameraPosition: _cameraInitPos,
-            markers: snapshot.data!.toSet(),
+            markers: snapshot.data!,
           );
         }
 
