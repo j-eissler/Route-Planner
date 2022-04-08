@@ -11,7 +11,7 @@ class Storage {
 
   Future<void> _loadDatabase() async {
     database = await openDatabase(
-      join(await getDatabasesPath(), 'route-planner.db'),
+      join(await getDatabasesPath(), 'route-planner.sqlite'),
       onCreate: (db, version) {
         return db.execute(
           'CREATE TABLE places(id STRING PRIMARY KEY, desc TEXT, lat FLOAT, lng FLOAT)',
