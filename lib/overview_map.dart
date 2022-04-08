@@ -12,7 +12,6 @@ class OverviewMap extends StatefulWidget {
 
 class _OverviewMapState extends State<OverviewMap> {
   late GoogleMapController mapController;
-  final LatLng _center = const LatLng(50.775555, 6.083611);
   final CameraPosition _cameraInitPos = const CameraPosition(
     target: LatLng(50.775555, 6.083611),
     zoom: 11.0,

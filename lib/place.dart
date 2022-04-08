@@ -14,7 +14,7 @@ class Place {
 
   @override
   String toString() {
-    return 'Desc: ${description}, LatLng: ${latLng}, PlaceID: ${placeId}';
+    return 'Desc: $description, LatLng: $latLng, PlaceID: $placeId';
   }
 
   // The keys must correspond to the names of the columns in the database.

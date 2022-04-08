@@ -20,7 +20,7 @@ class PredictionListTile extends StatelessWidget {
   Future<Place?> _fetchPlaceInfo() async {
     try {
       String url =
-          'https://maps.googleapis.com/maps/api/geocode/json?place_id=${prediction.placeId}&key=${googleApiKey}';
+          'https://maps.googleapis.com/maps/api/geocode/json?place_id=${prediction.placeId}&key=$googleApiKey';
       http.Response result = await http.get(Uri.parse(url));
       final jsonResult = jsonDecode(result.body)['results'][0];
       String description = jsonResult['formatted_address'];

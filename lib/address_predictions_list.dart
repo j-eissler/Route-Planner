@@ -26,9 +26,7 @@ class _AddressPredictionsListState extends State<AddressPredictionsList> {
   String? _sessionToken;
 
   void _onSearchFieldChanged() {
-    setState(() {
-      //content = widget.searchFieldController.text;
-    });
+    setState(() {});
   }
 
   /// Fetches autocomplete predictions from the Google Places API based on the content of the search field.
@@ -38,7 +36,7 @@ class _AddressPredictionsListState extends State<AddressPredictionsList> {
     // E.g. the user presses the back button without searching anything this would waste a billed request.
     if (searchInput.isNotEmpty) {
       String url =
-          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchInput}&sessiontoken=${_sessionToken}&key=${googleApiKey}";
+          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$searchInput&sessiontoken=$_sessionToken&key=$googleApiKey";
       http.Response result = await http.get(Uri.parse(url));
       List<dynamic> predictionsJson = jsonDecode(result.body)['predictions'];
       List<Prediction> predictions = [];

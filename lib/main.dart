@@ -33,8 +33,8 @@ class _MyAppState extends State<MyApp> {
     // Remove focus from search field
     FocusManager.instance.primaryFocus?.unfocus();
     setState(() {
-      _pageBody = OverviewMap();
-      _appBarIcon = Icon(Icons.search);
+      _pageBody = const OverviewMap();
+      _appBarIcon = const Icon(Icons.search);
       searchFieldController.clear();
     });
   }
@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
       );
       _appBarIcon = IconButton(
         onPressed: _setMapMode,
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
       );
     });
   }
@@ -58,8 +58,8 @@ class _MyAppState extends State<MyApp> {
     // Create map and set icon like in _setMapMode. Calling _setMapMode doesn't work because
     // setState can't be called from initState. The widget was not yet inserted into the widget tree
     // and therefore has no state yet.
-    _pageBody = OverviewMap();
-    _appBarIcon = Icon(Icons.search);
+    _pageBody = const OverviewMap();
+    _appBarIcon = const Icon(Icons.search);
   }
 
   @override
