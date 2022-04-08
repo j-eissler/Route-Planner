@@ -39,47 +39,59 @@ class _OverviewScreenState extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: TextButton(
-            // Button that creates the illusion of a search field. When pressed it moves the user to the search screen.
-            child: const TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search address',
-              ),
-              enabled: false,
-            ),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SearchScreen(),
-              ),
-              // Reload page when coming back to it
-            ).then((_) => setState(() {})),
-          ),
-          backgroundColor: Colors.white),
-      body: FutureBuilder(
-        future: _generateMarkers(),
-        builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
-          if (snapshot.hasData) {
-            // Markers were generated, display map
-            return GoogleMap(
-              onMapCreated: _onMapCreated,
-              compassEnabled: true,
-              zoomControlsEnabled: false,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              initialCameraPosition: _cameraInitPos,
-              markers: snapshot.data!,
-              mapToolbarEnabled: false,
-            );
-          }
+      body: Stack(
+        children: [
+          FutureBuilder(
+            future: _generateMarkers(),
+            builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
+              if (snapshot.hasData) {
+                // Markers were generated, display map
+                return GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  compassEnabled: true,
+                  zoomControlsEnabled: false,
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  initialCameraPosition: _cameraInitPos,
+                  markers: snapshot.data!,
+                  mapToolbarEnabled: false,
+                );
+              }
 
-          // Markers being loaded, display loading icon
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+              // Markers being loaded, display loading icon
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+          // Searchbar
+          Padding(
+            padding: const EdgeInsets.only(top: 40),
+            // Wrapper container to add drop shadow
+            child: TextButton(
+              // Button that creates the illusion of a search field. When pressed it moves the user to the search screen.
+              child: Material(
+                child: const TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: 'Search address',
+                  ),
+                  enabled: false,
+                ),
+                elevation: 4,
+                shadowColor: Colors.black,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+                // Reload page when coming back to it
+              ).then((_) => setState(() {})),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: const Navbar(
         currentIndex: 0,
