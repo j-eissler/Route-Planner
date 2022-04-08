@@ -5,11 +5,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'auth/secrets.dart';
+import 'storage.dart';
 
 class PredictionListTile extends StatelessWidget {
   final Prediction prediction;
+  final VoidCallback onPredictionSelected;
 
-  const PredictionListTile({Key? key, required this.prediction})
+  const PredictionListTile(
+      {Key? key, required this.prediction, required this.onPredictionSelected})
       : super(key: key);
 
   /// Makes a request to the Google Geocoding API and finds information about the place
@@ -34,11 +37,16 @@ class PredictionListTile extends StatelessWidget {
     return ListTile(
       title: Text(prediction.description),
       onTap: () async {
+        // Fetch place information
         Place? place = await _fetchPlaceInfo();
         if (place == null) return;
-        // TODO: store place data
-        // TODO: add marker to map
-        // TODO: go back to map page
+
+        // Add place to database
+        Storage storage = Storage();
+        await storage.add(place);
+
+        // Go back to map page
+        onPredictionSelected();
       },
     );
   }

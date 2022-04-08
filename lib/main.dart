@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _pageBody = AddressPredictionsList(
         searchFieldController: searchFieldController,
+        onPredictionSelected: _setMapMode,
       );
       _appBarIcon = IconButton(
         onPressed: _setMapMode,

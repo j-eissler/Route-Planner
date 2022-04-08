@@ -8,8 +8,12 @@ import 'auth/secrets.dart';
 
 class AddressPredictionsList extends StatefulWidget {
   final TextEditingController searchFieldController;
+  final VoidCallback onPredictionSelected;
 
-  const AddressPredictionsList({Key? key, required this.searchFieldController})
+  const AddressPredictionsList(
+      {Key? key,
+      required this.searchFieldController,
+      required this.onPredictionSelected})
       : super(key: key);
 
   @override
@@ -75,7 +79,10 @@ class _AddressPredictionsListState extends State<AddressPredictionsList> {
             return ListView.builder(
               itemCount: snapshot.data?.length,
               itemBuilder: (BuildContext context, int i) {
-                return PredictionListTile(prediction: snapshot.data![i]);
+                return PredictionListTile(
+                  prediction: snapshot.data![i],
+                  onPredictionSelected: widget.onPredictionSelected,
+                );
               },
             );
           }
