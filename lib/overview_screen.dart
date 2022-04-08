@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/place.dart';
+import 'package:flutter_application_1/navbar.dart';
 import 'package:flutter_application_1/search_screen.dart';
 import 'package:flutter_application_1/models/storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -79,6 +80,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
             child: CircularProgressIndicator(),
           );
         },
+      ),
+      bottomNavigationBar: const Navbar(
+        currentIndex: 0,
       ),
     );
   }
