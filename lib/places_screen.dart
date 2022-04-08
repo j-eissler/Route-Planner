@@ -28,9 +28,10 @@ class _PlacesScreenState extends State<PlacesScreen> {
                 return ListTile(
                   title: Text(snapshot.data![index].descriptionNoCountry()),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: Icon(Icons.done),
                     onPressed: () {
                       setState(() {
+                        // TODO: Change delete to "mark as visited"
                         storage.delete(snapshot.data![index]);
                       });
                     },
