@@ -16,7 +16,7 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ## Google API Key
-This app uses Google services which require an API key for billing. Enter your own API key into the following files:
+This app uses Google services which require an API key for billing. Templates are provided for the files that contain secrets. You need to remove '_template' from the filename. This was done to avoid pushing files with secrets to version control. Enter your own API key into the following files:
 - [/android/app/src/main/AndroidManifest.xml](/android/app/src/main/AndroidManifest.xml)
 - [/lib/auth/secrets.dart](/lib/auth/secrets.dart)
 
