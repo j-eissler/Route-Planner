@@ -12,4 +12,14 @@ class Place {
   String toString() {
     return 'Desc: ${description}, LatLng: ${latLng}, PlaceID: ${placeId}';
   }
+
+  // The keys must correspond to the names of the columns in the database.
+  Map<String, dynamic> toMap() {
+    return {
+      'id': placeId,
+      'desc': description,
+      'lat': latLng.latitude,
+      'lng': latLng.longitude,
+    };
+  }
 }
