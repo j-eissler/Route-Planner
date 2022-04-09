@@ -15,44 +15,38 @@ class _PlacesScreenState extends State<PlacesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('My Places')),
-      body: FutureBuilder(
-        future: storage.getAllPlaces(),
-        builder: (context, AsyncSnapshot<List<Place>> snapshot) {
-          if (snapshot.hasData) {
-            // show list of places
-            return ListView.separated(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(snapshot.data![index].descriptionNoCountry()),
-                  trailing: IconButton(
-                    icon: Icon(Icons.done),
-                    onPressed: () {
-                      setState(() {
-                        // TODO: Change delete to "mark as visited"
-                        storage.delete(snapshot.data![index]);
-                      });
-                    },
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return Divider();
-              },
-            );
-          }
-
-          // Places being loaded, display loading icon
-          return const Center(
-            child: CircularProgressIndicator(),
+    return FutureBuilder(
+      future: storage.getAllPlaces(),
+      builder: (context, AsyncSnapshot<List<Place>> snapshot) {
+        if (snapshot.hasData) {
+          // show list of places
+          return ListView.separated(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(snapshot.data![index].descriptionNoCountry()),
+                trailing: IconButton(
+                  icon: Icon(Icons.done),
+                  onPressed: () {
+                    setState(() {
+                      // TODO: Change delete to "mark as visited"
+                      storage.markVisited(snapshot.data![index]);
+                    });
+                  },
+                ),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return Divider();
+            },
           );
-        },
-      ),
-      bottomNavigationBar: const Navbar(
-        currentIndex: 1,
-      ),
+        }
+
+        // Places being loaded, display loading icon
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
