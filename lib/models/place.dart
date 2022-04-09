@@ -5,16 +5,18 @@ class Place {
   final LatLng latLng;
   // Google Maps place Id. Stored for possible future requests
   final String placeId;
+  bool visited;
 
-  const Place({
+  Place({
     required this.description,
     required this.latLng,
     required this.placeId,
+    this.visited = false,
   });
 
   @override
   String toString() {
-    return 'Desc: $description, LatLng: $latLng, PlaceID: $placeId';
+    return 'Desc: $description, LatLng: $latLng, PlaceID: $placeId, Visited: $visited';
   }
 
   // The keys must correspond to the names of the columns in the database.
@@ -24,6 +26,7 @@ class Place {
       'desc': description,
       'lat': latLng.latitude,
       'lng': latLng.longitude,
+      'visited': visited,
     };
   }
 

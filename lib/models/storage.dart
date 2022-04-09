@@ -15,7 +15,7 @@ class Storage {
       join(await getDatabasesPath(), 'route-planner.sqlite'),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE places(id STRING PRIMARY KEY, desc TEXT, lat FLOAT, lng FLOAT)',
+          'CREATE TABLE places(id STRING PRIMARY KEY, desc TEXT, lat FLOAT, lng FLOAT, visited INT)',
         );
       },
       version: 1,
@@ -34,15 +34,36 @@ class Storage {
     // Convert the List<Map<String, dynamic> into a List<Place>.
     return List.generate(maps.length, (i) {
       return Place(
-        description: maps[i]['desc'],
-        latLng: LatLng(maps[i]['lat'], maps[i]['lng']),
-        placeId: maps[i]['id'],
-      );
+          description: maps[i]['desc'],
+          latLng: LatLng(maps[i]['lat'], maps[i]['lng']),
+          placeId: maps[i]['id'],
+          visited: maps[i]['visited'] == 0 ? false : true);
     });
   }
 
   void delete(Place place) async {
     if (database == null) await _loadDatabase();
     database!.delete('places', where: 'id = ?', whereArgs: [place.placeId]);
+  }
+
+  void markVisited(Place place) async {
+    if (database == null) await _loadDatabase();
+    place.visited = true;
+    database!.update('places', place.toMap(),
+        where: 'id = ?', whereArgs: [place.placeId]);
+  }
+
+  Future<List<Place>> getAllVisitedPlaces() async {
+    if (database == null) await _loadDatabase();
+    final List<Map<String, dynamic>> maps =
+        await database!.query('places', where: 'visited = ?', whereArgs: [1]);
+    // Convert the List<Map<String, dynamic> into a List<Place>.
+    return List.generate(maps.length, (i) {
+      return Place(
+          description: maps[i]['desc'],
+          latLng: LatLng(maps[i]['lat'], maps[i]['lng']),
+          placeId: maps[i]['id'],
+          visited: maps[i]['visited'] == 0 ? false : true);
+    });
   }
 }
