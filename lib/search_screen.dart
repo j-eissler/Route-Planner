@@ -57,19 +57,15 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.black,
+        title: TextField(
+          controller: searchFieldController,
+          onChanged: _onSearchFieldChanged,
+          decoration: const InputDecoration(
+            hintText: 'Enter location name or address',
           ),
-          title: TextField(
-            controller: searchFieldController,
-            onChanged: _onSearchFieldChanged,
-            decoration: const InputDecoration(
-              hintText: 'Enter location name or address',
-            ),
-            //onTap: _setSearchMode,
-            autofocus: true,
-          ),
-          backgroundColor: Colors.white),
+          autofocus: true,
+        ),
+      ),
       body: FutureBuilder(
         future: fetchPredictions(),
         builder:

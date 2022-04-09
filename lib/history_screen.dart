@@ -14,49 +14,54 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: storage.getAllVisitedPlaces(),
-      builder: (context, AsyncSnapshot<List<Place>> snapshot) {
-        if (snapshot.hasData) {
-          // show list of places
-          return ListView.separated(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                  title: Text(snapshot.data![index].descriptionNoCountry()),
-                  trailing: Wrap(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.flag),
-                        onPressed: () {
-                          setState(() {
-                            // TODO: mark as unvisited
-                            //storage.delete(snapshot.data![index]);
-                          });
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            storage.delete(snapshot.data![index]);
-                          });
-                        },
-                      ),
-                    ],
-                  ));
-            },
-            separatorBuilder: (context, index) {
-              return Divider();
-            },
-          );
-        }
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Visited Places'),
+      ),
+      body: FutureBuilder(
+        future: storage.getAllVisitedPlaces(),
+        builder: (context, AsyncSnapshot<List<Place>> snapshot) {
+          if (snapshot.hasData) {
+            // show list of places
+            return ListView.separated(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                    title: Text(snapshot.data![index].descriptionNoCountry()),
+                    trailing: Wrap(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.flag),
+                          onPressed: () {
+                            setState(() {
+                              // TODO: mark as unvisited
+                              //storage.delete(snapshot.data![index]);
+                            });
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            setState(() {
+                              storage.delete(snapshot.data![index]);
+                            });
+                          },
+                        ),
+                      ],
+                    ));
+              },
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+            );
+          }
 
-        // Places being loaded, display loading icon
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+          // Places being loaded, display loading icon
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 }
