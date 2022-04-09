@@ -25,7 +25,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   Future<Set<Marker>> _generateMarkers() async {
     Storage storage = Storage();
-    List<Place> places = await storage.getAllPlaces();
+    List<Place> places = await storage.getAllUnvisitedPlaces();
 
     Set<Marker> markers = {};
     for (Place p in places) {

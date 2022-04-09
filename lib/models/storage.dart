@@ -28,9 +28,24 @@ class Storage {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<Place>> getAllPlaces() async {
+  Future<List<Place>> getAllUnvisitedPlaces() async {
     if (database == null) await _loadDatabase();
-    final List<Map<String, dynamic>> maps = await database!.query('places');
+    final List<Map<String, dynamic>> maps =
+        await database!.query('places', where: 'visited = ?', whereArgs: [0]);
+    // Convert the List<Map<String, dynamic> into a List<Place>.
+    return List.generate(maps.length, (i) {
+      return Place(
+          description: maps[i]['desc'],
+          latLng: LatLng(maps[i]['lat'], maps[i]['lng']),
+          placeId: maps[i]['id'],
+          visited: maps[i]['visited'] == 0 ? false : true);
+    });
+  }
+
+  Future<List<Place>> getAllVisitedPlaces() async {
+    if (database == null) await _loadDatabase();
+    final List<Map<String, dynamic>> maps =
+        await database!.query('places', where: 'visited = ?', whereArgs: [1]);
     // Convert the List<Map<String, dynamic> into a List<Place>.
     return List.generate(maps.length, (i) {
       return Place(
@@ -51,19 +66,5 @@ class Storage {
     place.visited = true;
     database!.update('places', place.toMap(),
         where: 'id = ?', whereArgs: [place.placeId]);
-  }
-
-  Future<List<Place>> getAllVisitedPlaces() async {
-    if (database == null) await _loadDatabase();
-    final List<Map<String, dynamic>> maps =
-        await database!.query('places', where: 'visited = ?', whereArgs: [1]);
-    // Convert the List<Map<String, dynamic> into a List<Place>.
-    return List.generate(maps.length, (i) {
-      return Place(
-          description: maps[i]['desc'],
-          latLng: LatLng(maps[i]['lat'], maps[i]['lng']),
-          placeId: maps[i]['id'],
-          visited: maps[i]['visited'] == 0 ? false : true);
-    });
   }
 }

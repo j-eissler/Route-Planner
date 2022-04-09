@@ -16,7 +16,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: storage.getAllPlaces(),
+      future: storage.getAllUnvisitedPlaces(),
       builder: (context, AsyncSnapshot<List<Place>> snapshot) {
         if (snapshot.hasData) {
           // show list of places
