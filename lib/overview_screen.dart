@@ -38,36 +38,34 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        FutureBuilder(
-          future: _generateMarkers(),
-          builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
-            if (snapshot.hasData) {
-              // Markers were generated, display map
-              return GoogleMap(
-                onMapCreated: _onMapCreated,
-                compassEnabled: true,
-                zoomControlsEnabled: false,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                initialCameraPosition: _cameraInitPos,
-                markers: snapshot.data!,
-                mapToolbarEnabled: false,
-              );
-            }
+    return SafeArea(
+      child: Stack(
+        children: [
+          FutureBuilder(
+            future: _generateMarkers(),
+            builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
+              if (snapshot.hasData) {
+                // Markers were generated, display map
+                return GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  compassEnabled: true,
+                  zoomControlsEnabled: false,
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  initialCameraPosition: _cameraInitPos,
+                  markers: snapshot.data!,
+                  mapToolbarEnabled: false,
+                );
+              }
 
-            // Markers being loaded, display loading icon
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        ),
-        // Searchbar
-        Padding(
-          padding: const EdgeInsets.only(top: 30),
-          // Wrapper container to add drop shadow
-          child: TextButton(
+              // Markers being loaded, display loading icon
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+          // Searchbar
+          TextButton(
             // Button that creates the illusion of a search field. When pressed it moves the user to the search screen.
             child: Material(
               child: const TextField(
@@ -89,8 +87,8 @@ class _OverviewScreenState extends State<OverviewScreen> {
               // Reload page when coming back to it
             ).then((_) => setState(() {})),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
