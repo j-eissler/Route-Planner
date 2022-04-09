@@ -29,7 +29,6 @@ class _PlacesScreenState extends State<PlacesScreen> {
                   icon: Icon(Icons.done),
                   onPressed: () {
                     setState(() {
-                      // TODO: Change delete to "mark as visited"
                       storage.markVisited(snapshot.data![index]);
                     });
                   },
