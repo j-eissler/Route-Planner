@@ -25,10 +25,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
               return ListTile(
                 title: Text(snapshot.data![index].descriptionNoCountry()),
                 trailing: IconButton(
-                  icon: Icon(Icons.done),
+                  icon: Icon(Icons.delete),
                   onPressed: () {
                     setState(() {
-                      // TODO: Change delete to "mark as visited"
                       storage.delete(snapshot.data![index]);
                     });
                   },
