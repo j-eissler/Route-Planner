@@ -61,8 +61,9 @@ class _SearchScreenState extends State<SearchScreen> {
           controller: searchFieldController,
           onChanged: _onSearchFieldChanged,
           decoration: const InputDecoration(
-            hintText: 'Enter location name or address',
-          ),
+              hintText: 'Enter location name or address',
+              hintStyle: TextStyle(color: Colors.grey)),
+          style: const TextStyle(color: Colors.white),
           autofocus: true,
         ),
       ),
