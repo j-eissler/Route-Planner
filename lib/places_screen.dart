@@ -13,20 +13,6 @@ class PlacesScreen extends StatefulWidget {
 class _PlacesScreenState extends State<PlacesScreen> {
   Storage storage = Storage();
 
-  void refresh() {
-    setState(() {});
-  }
-
-  Future<void> _openGoogleMaps(Place destination) async {
-    String url =
-        'https://www.google.com/maps/search/?api=1&query=${destination.placeId}';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      //throw 'Could not open map';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
