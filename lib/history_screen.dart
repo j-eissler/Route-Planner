@@ -23,34 +23,42 @@ class _HistoryScreenState extends State<HistoryScreen> {
         builder: (context, AsyncSnapshot<List<Place>> snapshot) {
           if (snapshot.hasData) {
             // show list of places
-            return ListView.separated(
+            return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                    title: Text(snapshot.data![index].descriptionNoCountry()),
-                    trailing: Wrap(
+                Place p = snapshot.data![index];
+                return ExpansionTile(
+                  // Specifying a key fixed the problem where after removing an expanded tile the next item on the list
+                  // would be expanded after rebuilding the widget.
+                  key: UniqueKey(),
+                  title: Text(snapshot.data![index].descriptionNoCountry()),
+                  initiallyExpanded: false,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                          icon: Icon(Icons.flag),
+                        ElevatedButton.icon(
                           onPressed: () {
                             setState(() {
-                              storage.setVisited(snapshot.data![index], false);
+                              storage.setVisited(p, false);
                             });
                           },
+                          icon: const Icon(Icons.flag),
+                          label: const Text('Not Visited'),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
+                        ElevatedButton.icon(
                           onPressed: () {
                             setState(() {
-                              storage.delete(snapshot.data![index]);
+                              storage.delete(p);
                             });
                           },
+                          icon: const Icon(Icons.delete),
+                          label: const Text('Delete'),
                         ),
                       ],
-                    ));
-              },
-              separatorBuilder: (context, index) {
-                return Divider();
+                    )
+                  ],
+                );
               },
             );
           }
