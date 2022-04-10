@@ -28,9 +28,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
     Set<Marker> markers = {};
     for (Place p in places) {
-      markers.add(
-        Marker(markerId: MarkerId(p.placeId), position: p.latLng),
-      );
+      Marker m = Marker(
+          markerId: MarkerId(p.placeId),
+          position: p.latLng,
+          infoWindow: InfoWindow(title: p.description));
+      markers.add(m);
     }
     return markers;
   }
