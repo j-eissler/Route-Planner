@@ -29,6 +29,9 @@ class _PlacesScreenState extends State<PlacesScreen> {
               itemBuilder: (context, index) {
                 Place p = snapshot.data![index];
                 return ExpansionTile(
+                  // Specifying a key fixed the problem where after removing an expanded tile the next item on the list
+                  // would be expanded after rebuilding the widget.
+                  key: UniqueKey(),
                   title: Text(p.description),
                   initiallyExpanded: false,
                   children: [
