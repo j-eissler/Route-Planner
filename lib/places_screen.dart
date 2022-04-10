@@ -33,7 +33,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
                     icon: Icon(Icons.done),
                     onPressed: () {
                       setState(() {
-                        storage.markVisited(snapshot.data![index]);
+                        storage.setVisited(snapshot.data![index], true);
                       });
                     },
                   ),

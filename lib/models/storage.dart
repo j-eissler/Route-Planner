@@ -61,9 +61,9 @@ class Storage {
     database!.delete('places', where: 'id = ?', whereArgs: [place.placeId]);
   }
 
-  void markVisited(Place place) async {
+  void setVisited(Place place, bool visited) async {
     if (database == null) await _loadDatabase();
-    place.visited = true;
+    place.visited = visited;
     database!.update('places', place.toMap(),
         where: 'id = ?', whereArgs: [place.placeId]);
   }

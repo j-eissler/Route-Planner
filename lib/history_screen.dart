@@ -34,8 +34,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           icon: Icon(Icons.flag),
                           onPressed: () {
                             setState(() {
-                              // TODO: mark as unvisited
-                              //storage.delete(snapshot.data![index]);
+                              storage.setVisited(snapshot.data![index], false);
                             });
                           },
                         ),
