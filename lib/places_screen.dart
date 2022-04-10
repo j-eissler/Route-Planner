@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/place.dart';
 import 'package:flutter_application_1/models/storage.dart';
-import 'package:flutter_application_1/navbar.dart';
 
 class PlacesScreen extends StatefulWidget {
   const PlacesScreen({Key? key}) : super(key: key);
