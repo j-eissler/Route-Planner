@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/place.dart';
 import 'package:flutter_application_1/models/storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PlacesScreen extends StatefulWidget {
   const PlacesScreen({Key? key}) : super(key: key);
@@ -14,6 +15,16 @@ class _PlacesScreenState extends State<PlacesScreen> {
 
   void refresh() {
     setState(() {});
+  }
+
+  Future<void> _openGoogleMaps(Place destination) async {
+    String url =
+        'https://www.google.com/maps/search/?api=1&query=${destination.placeId}';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      //throw 'Could not open map';
+    }
   }
 
   @override
@@ -47,7 +58,11 @@ class _PlacesScreenState extends State<PlacesScreen> {
                             icon: Icon(Icons.check),
                             label: Text('Visited')),
                         ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              print('Goto: ${p.placeId}');
+                              launch(
+                                  'https://www.google.com/maps/search/?api=1&query=${p.latLng.latitude},${p.latLng.longitude}&query_place_id=${p.placeId}');
+                            },
                             icon: Icon(Icons.navigation),
                             label: Text('Go Here')),
                       ],
