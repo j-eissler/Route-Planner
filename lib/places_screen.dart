@@ -12,6 +12,10 @@ class PlacesScreen extends StatefulWidget {
 class _PlacesScreenState extends State<PlacesScreen> {
   Storage storage = Storage();
 
+  void refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,23 +27,33 @@ class _PlacesScreenState extends State<PlacesScreen> {
         builder: (context, AsyncSnapshot<List<Place>> snapshot) {
           if (snapshot.hasData) {
             // show list of places
-            return ListView.separated(
+            return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(snapshot.data![index].descriptionNoCountry()),
-                  trailing: IconButton(
-                    icon: Icon(Icons.done),
-                    onPressed: () {
-                      setState(() {
-                        storage.setVisited(snapshot.data![index], true);
-                      });
-                    },
-                  ),
+                Place p = snapshot.data![index];
+                return ExpansionTile(
+                  title: Text(p.description),
+                  initiallyExpanded: false,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                storage.setVisited(p, true);
+                              });
+                            },
+                            icon: Icon(Icons.check),
+                            label: Text('Visited')),
+                        ElevatedButton.icon(
+                            onPressed: () {},
+                            icon: Icon(Icons.navigation),
+                            label: Text('Go Here')),
+                      ],
+                    )
+                  ],
                 );
-              },
-              separatorBuilder: (context, index) {
-                return Divider();
               },
             );
           }
