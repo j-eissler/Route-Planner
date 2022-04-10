@@ -55,16 +55,15 @@ class _PlacesScreenState extends State<PlacesScreen> {
                                 storage.setVisited(p, true);
                               });
                             },
-                            icon: Icon(Icons.check),
-                            label: Text('Visited')),
+                            icon: const Icon(Icons.check),
+                            label: const Text('Visited')),
                         ElevatedButton.icon(
                             onPressed: () {
-                              print('Goto: ${p.placeId}');
                               launch(
                                   'https://www.google.com/maps/search/?api=1&query=${p.latLng.latitude},${p.latLng.longitude}&query_place_id=${p.placeId}');
                             },
-                            icon: Icon(Icons.navigation),
-                            label: Text('Go Here')),
+                            icon: const Icon(Icons.navigation),
+                            label: const Text('Go Here')),
                       ],
                     )
                   ],
