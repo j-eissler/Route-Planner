@@ -25,7 +25,12 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)),
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
       home: Scaffold(
         body: _screens[_currentNavbarIndex],
         bottomNavigationBar: BottomNavigationBar(
