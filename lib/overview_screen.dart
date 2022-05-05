@@ -94,6 +94,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
                     hintText: 'Search address',
+                    border: InputBorder.none,
                   ),
                   enabled: false,
                 ),
