@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/place.dart';
 import 'package:flutter_application_1/search_screen.dart';
 import 'package:flutter_application_1/models/storage.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -38,6 +39,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
     return markers;
   }
 
+  void _centerCameraOnMyLocation() async {
+    final myLocation = await Geolocator.getCurrentPosition();
+    final myLatLng = LatLng(myLocation.latitude, myLocation.longitude);
+    mapController.animateCamera(CameraUpdate.newLatLngZoom(
+        myLatLng, await mapController.getZoomLevel()));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -57,9 +65,8 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 return GoogleMap(
                   onMapCreated: _onMapCreated,
                   compassEnabled: true,
-                  zoomControlsEnabled: false,
+                  zoomControlsEnabled: true,
                   myLocationEnabled: true,
-                  myLocationButtonEnabled: true,
                   initialCameraPosition: _cameraInitPos,
                   markers: snapshot.data!,
                   mapToolbarEnabled: false,
@@ -94,6 +101,17 @@ class _OverviewScreenState extends State<OverviewScreen> {
               ),
               // Reload page when coming back to it
             ).then((_) => setState(() {})),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child:
+                // Button to center the camera on the current location
+                // A custom button is needed because the default one that comes with the Google map package
+                // is hidden behind the searchbar and cannot be relocated.
+                ElevatedButton(
+              onPressed: _centerCameraOnMyLocation,
+              child: Icon(Icons.gps_fixed),
+            ),
           ),
         ],
       ),
