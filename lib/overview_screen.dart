@@ -40,6 +40,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
   }
 
   void _centerCameraOnMyLocation() async {
+    if (await Geolocator.isLocationServiceEnabled() == false) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please enable location services')));
+      return;
+    }
     final myLocation = await Geolocator.getCurrentPosition();
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(
