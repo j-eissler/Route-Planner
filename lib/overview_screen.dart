@@ -3,6 +3,7 @@ import 'package:flutter_application_1/models/place.dart';
 import 'package:flutter_application_1/search_screen.dart';
 import 'package:flutter_application_1/models/storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({Key? key}) : super(key: key);
@@ -35,6 +36,12 @@ class _OverviewScreenState extends State<OverviewScreen> {
       markers.add(m);
     }
     return markers;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Permission.locationWhenInUse.request();
   }
 
   @override

@@ -10,9 +10,13 @@ import 'models/storage.dart';
 class PredictionListTile extends StatelessWidget {
   final Prediction prediction;
   final VoidCallback onPredictionSelected;
+  final Function(Prediction) onPredictionInserted;
 
   const PredictionListTile(
-      {Key? key, required this.prediction, required this.onPredictionSelected})
+      {Key? key,
+      required this.prediction,
+      required this.onPredictionSelected,
+      required this.onPredictionInserted})
       : super(key: key);
 
   /// Makes a request to the Google Geocoding API and finds information about the place
@@ -51,6 +55,10 @@ class PredictionListTile extends StatelessWidget {
         // Go back to map page
         onPredictionSelected();
       },
+      trailing: IconButton(
+        icon: const Icon(Icons.north_west),
+        onPressed: onPredictionInserted(prediction),
+      ),
     );
   }
 }

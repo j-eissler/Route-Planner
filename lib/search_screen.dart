@@ -79,6 +79,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   return PredictionListTile(
                     prediction: snapshot.data![i],
                     onPredictionSelected: () => Navigator.pop(context),
+                    onPredictionInserted: (Prediction p) {
+                        searchFieldController.text = p.description;
+                    },
                   );
                 },
               );
