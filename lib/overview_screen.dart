@@ -73,6 +73,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     compassEnabled: false,
                     zoomControlsEnabled: false,
                     myLocationEnabled: true,
+                    myLocationButtonEnabled: false,
                     initialCameraPosition: _cameraInitPos,
                     markers: snapshot.data!,
                     mapToolbarEnabled: false,
