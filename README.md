@@ -1,6 +1,6 @@
-# flutter_application_1
+# Route Planner (Readme WIP)
 
-A new Flutter project.
+This cross-platform app aims to help users plan long routes with many stops. It provides an overview by displaying a Google Map with markers for all stops. It allows searching and adding new places all from within this app.
 
 ## Getting Started
 
