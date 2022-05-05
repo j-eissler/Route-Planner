@@ -41,9 +41,14 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   void _centerCameraOnMyLocation() async {
     final myLocation = await Geolocator.getCurrentPosition();
-    final myLatLng = LatLng(myLocation.latitude, myLocation.longitude);
-    mapController.animateCamera(CameraUpdate.newLatLngZoom(
-        myLatLng, await mapController.getZoomLevel()));
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: LatLng(myLocation.latitude, myLocation.longitude),
+            zoom: await mapController.getZoomLevel(),
+            bearing: 0),
+      ),
+    );
   }
 
   @override
@@ -64,8 +69,8 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 // Markers were generated, display map
                 return GoogleMap(
                   onMapCreated: _onMapCreated,
-                  compassEnabled: true,
-                  zoomControlsEnabled: true,
+                  compassEnabled: false,
+                  zoomControlsEnabled: false,
                   myLocationEnabled: true,
                   initialCameraPosition: _cameraInitPos,
                   markers: snapshot.data!,
