@@ -60,65 +60,63 @@ class _OverviewScreenState extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Stack(
-        children: [
-          FutureBuilder(
-            future: _generateMarkers(),
-            builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
-              if (snapshot.hasData) {
-                // Markers were generated, display map
-                return GoogleMap(
-                  onMapCreated: _onMapCreated,
-                  compassEnabled: false,
-                  zoomControlsEnabled: false,
-                  myLocationEnabled: true,
-                  initialCameraPosition: _cameraInitPos,
-                  markers: snapshot.data!,
-                  mapToolbarEnabled: false,
-                );
-              }
+      child: Scaffold(
+        body: Stack(
+          children: [
+            FutureBuilder(
+              future: _generateMarkers(),
+              builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
+                if (snapshot.hasData) {
+                  // Markers were generated, display map
+                  return GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    compassEnabled: false,
+                    zoomControlsEnabled: false,
+                    myLocationEnabled: true,
+                    initialCameraPosition: _cameraInitPos,
+                    markers: snapshot.data!,
+                    mapToolbarEnabled: false,
+                  );
+                }
 
-              // Markers being loaded, display loading icon
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          ),
-          // Searchbar
-          TextButton(
-            // Button that creates the illusion of a search field. When pressed it moves the user to the search screen.
-            child: Material(
-              child: const TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Search address',
+                // Markers being loaded, display loading icon
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+            // Searchbar
+            TextButton(
+              // Button that creates the illusion of a search field. When pressed it moves the user to the search screen.
+              child: Material(
+                child: const TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: 'Search address',
+                  ),
+                  enabled: false,
                 ),
-                enabled: false,
+                elevation: 4,
+                shadowColor: Colors.black,
+                borderRadius: BorderRadius.circular(12),
               ),
-              elevation: 4,
-              shadowColor: Colors.black,
-              borderRadius: BorderRadius.circular(12),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+                // Reload page when coming back to it
+              ).then((_) => setState(() {})),
             ),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SearchScreen(),
-              ),
-              // Reload page when coming back to it
-            ).then((_) => setState(() {})),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child:
-                // Button to center the camera on the current location
-                // A custom button is needed because the default one that comes with the Google map package
-                // is hidden behind the searchbar and cannot be relocated.
-                ElevatedButton(
-              onPressed: _centerCameraOnMyLocation,
-              child: Icon(Icons.gps_fixed),
-            ),
-          ),
-        ],
+          ],
+        ),
+        // Button to center the camera on the current location
+        // A custom button is needed because the default one that comes with the Google map package
+        // is hidden behind the searchbar and cannot be relocated.
+        floatingActionButton: FloatingActionButton(
+          onPressed: _centerCameraOnMyLocation,
+          child: const Icon(Icons.gps_fixed),
+        ),
       ),
     );
   }
