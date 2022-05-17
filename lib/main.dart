@@ -26,7 +26,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(
         brightness: Brightness.light,
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color.fromRGBO(66, 133, 244, 1),
+        ),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
