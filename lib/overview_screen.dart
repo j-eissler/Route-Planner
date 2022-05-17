@@ -39,6 +39,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
     return markers;
   }
 
+  /*
   void _centerCameraOnMyLocation() async {
     if (await Geolocator.isLocationServiceEnabled() == false) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -55,6 +56,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       ),
     );
   }
+  */
 
   @override
   void initState() {
@@ -64,66 +66,46 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            FutureBuilder(
-              future: _generateMarkers(),
-              builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
-                if (snapshot.hasData) {
-                  // Markers were generated, display map
-                  return GoogleMap(
-                    onMapCreated: _onMapCreated,
-                    compassEnabled: false,
-                    zoomControlsEnabled: false,
-                    myLocationEnabled: true,
-                    myLocationButtonEnabled: false,
-                    initialCameraPosition: _cameraInitPos,
-                    markers: snapshot.data!,
-                    mapToolbarEnabled: false,
-                  );
-                }
-
-                // Markers being loaded, display loading icon
-                return const Center(
-                  child: CircularProgressIndicator(),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Overview Map')),
+      body: Stack(
+        children: [
+          FutureBuilder(
+            future: _generateMarkers(),
+            builder: (context, AsyncSnapshot<Set<Marker>> snapshot) {
+              if (snapshot.hasData) {
+                // Markers were generated, display map
+                return GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  compassEnabled: true,
+                  zoomControlsEnabled: false,
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  initialCameraPosition: _cameraInitPos,
+                  markers: snapshot.data!,
+                  mapToolbarEnabled: false,
                 );
-              },
-            ),
-            // Searchbar
-            TextButton(
-              // Button that creates the illusion of a search field. When pressed it moves the user to the search screen.
-              child: Material(
-                child: const TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: 'Search address',
-                    border: InputBorder.none,
-                  ),
-                  enabled: false,
-                ),
-                elevation: 4,
-                shadowColor: Colors.black,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SearchScreen(),
-                ),
-                // Reload page when coming back to it
-              ).then((_) => setState(() {})),
-            ),
-          ],
-        ),
-        // Button to center the camera on the current location
-        // A custom button is needed because the default one that comes with the Google map package
-        // is hidden behind the searchbar and cannot be relocated.
-        floatingActionButton: FloatingActionButton(
-          onPressed: _centerCameraOnMyLocation,
-          child: const Icon(Icons.gps_fixed),
-        ),
+              }
+              // Markers being loaded, display loading icon
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+        ],
+      ),
+      // Button to center the camera on the current location
+      // A custom button is needed because the default one that comes with the Google map package
+      // is hidden behind the searchbar and cannot be relocated.
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SearchScreen(),
+          ),
+          // Reload page when coming back to it
+        ).then((_) => setState(() {})),
+        child: const Icon(Icons.search),
       ),
     );
   }
