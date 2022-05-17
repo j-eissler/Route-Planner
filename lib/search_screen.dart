@@ -20,6 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
   String? _sessionToken;
 
   void _onSearchFieldChanged(String input) {
+    print('Search field changed: $input');
     setState(() {});
   }
 
@@ -80,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     prediction: snapshot.data![i],
                     onPredictionSelected: () => Navigator.pop(context),
                     onPredictionInserted: (Prediction p) {
-                        searchFieldController.text = p.description;
+                      searchFieldController.text = p.description;
                     },
                   );
                 },

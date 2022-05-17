@@ -57,7 +57,7 @@ class PredictionListTile extends StatelessWidget {
       },
       trailing: IconButton(
         icon: const Icon(Icons.north_west),
-        onPressed: onPredictionInserted(prediction),
+        onPressed: () => onPredictionInserted(prediction),
       ),
     );
   }
