@@ -25,13 +25,14 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       theme: ThemeData(
-        brightness: Brightness.light,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromRGBO(66, 133, 244, 1),
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.teal,
         ),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.white,
+          selectionHandleColor: Color.fromARGB(255, 0, 220, 198),
+          selectionColor: Color.fromARGB(255, 107, 151, 147),
+        ),
       ),
       home: Scaffold(
         body: _screens[_currentNavbarIndex],
