@@ -40,20 +40,20 @@ class _PlacesScreenState extends State<PlacesScreen> {
                       children: [
                         ElevatedButton.icon(
                           onPressed: () {
+                            launch(
+                                'https://www.google.com/maps/search/?api=1&query=${p.latLng.latitude},${p.latLng.longitude}&query_place_id=${p.placeId}');
+                          },
+                          icon: const Icon(Icons.navigation),
+                          label: const Text('Go Here'),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {
                             setState(() {
                               storage.setVisited(p, true);
                             });
                           },
                           icon: const Icon(Icons.check),
                           label: const Text('Visited'),
-                        ),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            launch(
-                                'https://www.google.com/maps/search/?api=1&query=${p.latLng.latitude},${p.latLng.longitude}&query_place_id=${p.placeId}');
-                          },
-                          icon: const Icon(Icons.navigation),
-                          label: const Text('Go Here'),
                         ),
                       ],
                     )
