@@ -63,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
           onChanged: _onSearchFieldChanged,
           decoration: const InputDecoration(
               hintText: 'Enter location name or address',
-              hintStyle: TextStyle(color: Colors.grey)),
+              hintStyle: TextStyle(color: Color.fromARGB(255, 201, 201, 201))),
           style: const TextStyle(color: Colors.white),
           autofocus: true,
         ),
